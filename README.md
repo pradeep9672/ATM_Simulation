@@ -1,4 +1,4 @@
-1. Account Class
+#1. Account Class
 This class is the backbone of individual account management.
 Attributes:
 accountNumber, pin, and balance: These hold the account information and balance.
@@ -8,7 +8,7 @@ getBalance(): Returns the current balance of the account.
 deposit(double amount): Increases the balance by the specified amount.
 withdraw(double amount): Checks if the balance is sufficient, then deducts the specified amount if possible, returning true if successful and false otherwise.
 
-2. ATM Class
+#2. ATM Class
 Acts as a controller to manage multiple accounts and handle login operations.
 Attributes:
 HashMap<Integer, Account> accounts: Stores all accounts using account numbers as keys, making it easy to find accounts during login.
@@ -16,7 +16,7 @@ Methods:
 login(int accountNumber, int pin): Validates the entered account number and PIN. If successful, it returns the corresponding Account object, or null if the login fails.
 Purpose: This class is responsible for loading the account data and providing access control for account operations.
 
-3. ATMGUI Class
+#3. ATMGUI Class
 The main GUI component, which extends JFrame (a Swing GUI window).
 Attributes:
 
@@ -30,7 +30,7 @@ handleDeposit(): Reads the deposit amount, adds it to the balance, and updates t
 handleWithdraw(): Reads the withdrawal amount and checks if the balance is sufficient. If so, it deducts the amount and updates the message; otherwise, it shows an “Insufficient funds” message.
 handleBalance(): Fetches and displays the current balance of the logged-in account.
 
-5. Main GUI Workflow
+#4. Main GUI Workflow
 When the application starts:
 
 Login Screen: Users enter their account number and PIN. If they match an existing account in the ATM class, the main ATM screen opens.
