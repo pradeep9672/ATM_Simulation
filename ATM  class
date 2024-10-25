@@ -1,0 +1,20 @@
+import java.util.HashMap;
+
+public class ATM {
+    private HashMap<Integer, Account> accounts;
+
+    public ATM() {
+        accounts = new HashMap<>();
+        // Add some dummy accounts for testing
+        accounts.put(1234, new Account(1234, 5678, 1000.00));
+        accounts.put(2345, new Account(2345, 6789, 1500.00));
+    }
+
+    public Account login(int accountNumber, int pin) {
+        Account account = accounts.get(accountNumber);
+        if (account != null && account.validatePin(pin)) {
+            return account;
+        }
+        return null; // Invalid login
+    }
+}
