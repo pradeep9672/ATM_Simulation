@@ -1,0 +1,107 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class ATMGUI extends JFrame {
+    private JTextField accountNumberField;
+    private JPasswordField pinField;
+    private JTextField amountField;
+    private JButton loginButton, depositButton, withdrawButton, balanceButton;
+    private JLabel messageLabel;
+    private Account currentAccount;
+    private ATM atm;
+
+    public ATMGUI(ATM atm) {
+        this.atm = atm;
+        createLoginUI();
+        setTitle("ATM Simulation");
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+    }
+
+    private void createLoginUI() {
+        JPanel panel = new JPanel(new GridLayout(3, 2));
+
+        panel.add(new JLabel("Account Number:"));
+        accountNumberField = new JTextField();
+        panel.add(accountNumberField);
+
+        panel.add(new JLabel("PIN:"));
+        pinField = new JPasswordField();
+        panel.add(pinField);
+
+        loginButton = new JButton("Login");
+        loginButton.addActionListener(e -> handleLogin());
+        panel.add(loginButton);
+
+        messageLabel = new JLabel();
+        panel.add(messageLabel);
+
+        add(panel, BorderLayout.CENTER);
+    }
+
+    private void createATMUI() {
+        JPanel panel = new JPanel(new GridLayout(4, 2));
+
+        panel.add(new JLabel("Enter Amount:"));
+        amountField = new JTextField();
+        panel.add(amountField);
+
+        depositButton = new JButton("Deposit");
+        depositButton.addActionListener(e -> handleDeposit());
+        panel.add(depositButton);
+
+        withdrawButton = new JButton("Withdraw");
+        withdrawButton.addActionListener(e -> handleWithdraw());
+        panel.add(withdrawButton);
+
+        balanceButton = new JButton("Check Balance");
+        balanceButton.addActionListener(e -> handleBalance());
+        panel.add(balanceButton);
+
+        messageLabel = new JLabel();
+        panel.add(messageLabel);
+
+        getContentPane().removeAll();
+        add(panel, BorderLayout.CENTER);
+        revalidate();
+        repaint();
+    }
+
+    private void handleLogin() {
+        int accountNumber = Integer.parseInt(accountNumberField.getText());
+        int pin = Integer.parseInt(new String(pinField.getPassword()));
+        currentAccount = atm.login(accountNumber, pin);
+        if (currentAccount != null) {
+            messageLabel.setText("Login successful");
+            createATMUI();
+        } else {
+            messageLabel.setText("Invalid account number or PIN");
+        }
+    }
+
+    private void handleDeposit() {
+        double amount = Double.parseDouble(amountField.getText());
+        currentAccount.deposit(amount);
+        messageLabel.setText("Deposited: " + amount);
+    }
+
+    private void handleWithdraw() {
+        double amount = Double.parseDouble(amountField.getText());
+        if (currentAccount.withdraw(amount)) {
+            messageLabel.setText("Withdrawn: " + amount);
+        } else {
+            messageLabel.setText("Insufficient funds");
+        }
+    }
+
+    private void handleBalance() {
+        messageLabel.setText("Balance: " + currentAccount.getBalance());
+    }
+
+    public static void main(String[] args) {
+        ATM atm = new ATM();
+        new ATMGUI(atm);
+    }
+}
