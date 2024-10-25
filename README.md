@@ -1,9 +1,13 @@
 #1. Account Class
-This class is the backbone of individual account management.
+***
+*This class is the backbone of individual account management.
 Attributes:
-accountNumber, pin, and balance: These hold the account information and balance.
+
+
+*accountNumber, pin, and balance: These hold the account information and balance.
 Methods:
-validatePin(int enteredPin): Checks if the entered PIN matches the account’s PIN.
+
+*validatePin(int enteredPin): Checks if the entered PIN matches the account’s PIN.
 getBalance(): Returns the current balance of the account.
 deposit(double amount): Increases the balance by the specified amount.
 withdraw(double amount): Checks if the balance is sufficient, then deducts the specified amount if possible, returning true if successful and false otherwise.
